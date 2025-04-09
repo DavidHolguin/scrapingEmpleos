@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import uvicorn
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 
 # Importar modelos y scraper
 from models.job_models import JobListing, ScrapingRequest
@@ -10,6 +11,15 @@ app = FastAPI(
     title="API de Scraping de Empleos",
     description="API para extraer ofertas de empleo de diversas plataformas.",
     version="0.1.0"
+)
+
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/")
